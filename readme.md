@@ -13,20 +13,21 @@ Gausssians MAF, and RealNVP modules on UCI datasets and MNIST.
 
 #### Results
 Average test log likelihood for un/conditional density estimation (cf.
-Table 1 & 2 in paper):
+Table 1 & 2 in paper for results and parameters; models here were trained for 50 epochs):
 
 | Model | POWER | GAS | HEPMASS | MINIBOONE | BSDS300 | MNIST (uncond) | MNIST (cond) |
-| --- | --- | --- |
+| --- | --- | --- | --- | --- | --- | --- | --- |
 | MADE | -3.10 +/- 0.02 | 2.53 +/- 0.02 | -21.13 +/- 0.01 | -15.36 +/- 15.06 | 146.42 +/- 0.14 | -1393.67 +/- 1.90 | -1338.12 +/- 1.75 |
 | MADE MOG | 0.37 +/- 0.01 | 8.08 +/- 0.02 | -15.70 +/- 0.02 | -11.64 +/- 0.44 | 153.56 +/- 0.28 | -1023.13 +/- 1.69 | -1010.51 +/- 1.64 |
 | RealNVP (5) | -0.49 +/- 0.01 | 7.01 +/- 0.06 | -19.96 +/- 0.02 | -16.88 +/- 0.21 | 148.34 +/- 0.26 | -1279.76 +/- 9.91 | -1275.06 +/- 14.23 |
 | MAF (5) | 0.03 +/- 0.01 | 6.23 +/- 0.01 | -17.97 +/- 0.01 | -11.57 +/- 0.21 | 153.53 +/- 0.27 | -1272.70 +/- 1.87 | -1270.12 +/- 6.89 |
 | MAF MOG (5) | 0.09 +/- 0.01 | 7.96 +/- 0.02 | -17.29 +/- 0.02 | -11.27 +/- 0.41 | 153.35 +/- 0.26 | -1080.46 +/- 1.53 | -1067.12 +/- 1.54 |
 
+
 Toy density model (cf. Figure 1 in paper):
 
 | Target density | Learned density with MADE <br> and random numbers driving MADE | Learned density with MAF 5 layers <br> and random numbers driving MAF |
-| --- | --- | --- | --- | --- |
+| --- | --- | --- |
 | ![fig1a](images/maf/figure_1a.png) | ![fig1b](images/maf/figure_1b.png) | ![fig1c](images/maf/figure_1c.png) |
 
 Class-conditional generated images from MNIST using MAF (5) model; generated data arrange by decreasing log probability (cf. Figure 3 in paper):
