@@ -36,7 +36,7 @@ Embedding vectors were calculated for the first 30K training images and positive
 
 | Attribute | `dz` range [-2, -1, 0, 1, 2] |
 | --- | --- |
-| Brown hair | ![attr_8](images/glow/manipulated_sample_attr_8.png) | 
+| Brown hair | ![attr_8](images/glow/manipulated_sample_attr_8.png) |
 | Male | ![attr_20](images/glow/manipulated_sample_attr_20.png) |
 | Mouth slightly opened | ![attr_21](images/glow/manipulated_sample_attr_21.png) |
 | Young | ![attr_39](images/glow/manipulated_sample_attr_39.png) |
@@ -119,11 +119,11 @@ Table 1 & 2 in paper for results and parameters; models here were trained for 50
 
 | Model | POWER | GAS | HEPMASS | MINIBOONE | BSDS300 | MNIST (uncond) | MNIST (cond) |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| MADE | -3.10 +/- 0.02 | 2.53 +/- 0.02 | -21.13 +/- 0.01 | -15.36 +/- 15.06 | 146.42 +/- 0.14 | -1393.67 +/- 1.90 | -1338.12 +/- 1.75 |
-| MADE MOG | 0.37 +/- 0.01 | 8.08 +/- 0.02 | -15.70 +/- 0.02 | -11.64 +/- 0.44 | 153.56 +/- 0.28 | -1023.13 +/- 1.69 | -1010.51 +/- 1.64 |
-| RealNVP (5) | -0.49 +/- 0.01 | 7.01 +/- 0.06 | -19.96 +/- 0.02 | -16.88 +/- 0.21 | 148.34 +/- 0.26 | -1279.76 +/- 9.91 | -1275.06 +/- 14.23 |
-| MAF (5) | 0.03 +/- 0.01 | 6.23 +/- 0.01 | -17.97 +/- 0.01 | -11.57 +/- 0.21 | 153.53 +/- 0.27 | -1272.70 +/- 1.87 | -1270.12 +/- 6.89 |
-| MAF MOG (5) | 0.09 +/- 0.01 | 7.96 +/- 0.02 | -17.29 +/- 0.02 | -11.27 +/- 0.41 | 153.35 +/- 0.26 | -1080.46 +/- 1.53 | -1067.12 +/- 1.54 |
+| MADE | -3.10 +/- 0.02 | 2.53 +/- 0.02 | -21.13 +/- 0.01 | -15.36 +/- 15.06 | 146.42 +/- 0.14 | -1393.67 +/- 1.90 | -1340.98 +/- 1.71 |
+| MADE MOG | 0.37 +/- 0.01 | 8.08 +/- 0.02 | -15.70 +/- 0.02 | -11.64 +/- 0.44 | 153.56 +/- 0.28 | -1023.13 +/- 1.69 | -1013.75 +/- 1.61 |
+| RealNVP (5) | -0.49 +/- 0.01 | 7.01 +/- 0.06 | -19.96 +/- 0.02 | -16.88 +/- 0.21 | 148.34 +/- 0.26 | -1279.76 +/- 9.91 | -1276.33 +/- 12.21 |
+| MAF (5) | 0.03 +/- 0.01 | 6.23 +/- 0.01 | -17.97 +/- 0.01 | -11.57 +/- 0.21 | 153.53 +/- 0.27 | -1272.70 +/- 1.87 | -1268.24 +/- 2.73 |
+| MAF MOG (5) | 0.09 +/- 0.01 | 7.96 +/- 0.02 | -17.29 +/- 0.02 | -11.27 +/- 0.41 | 153.35 +/- 0.26 | -1080.46 +/- 1.53 | -1070.33 +/- 1.53 |
 
 
 Toy density model (cf. Figure 1 in paper):
@@ -213,6 +213,7 @@ python planar_flow.py -- evaluate \
 * numpy
 * matplotlib
 * tensorboardX
+*
 
 ###### Some of the datasets further require:
 * pandas
