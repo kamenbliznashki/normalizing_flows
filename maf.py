@@ -517,19 +517,17 @@ def evaluate(model, dataloader, epoch, args):
 
     # conditional model
     if args.cond_label_size is not None:
-        logprior = torch.tensor(1 / args.cond_label_size).to(args.device)
+        logprior = torch.tensor(1 / args.cond_label_size).log().to(args.device)
         loglike = [[] for _ in range(args.cond_label_size)]
 
         for i in range(args.cond_label_size):
             # make one-hot labels
             labels = torch.zeros(args.batch_size, args.cond_label_size).to(args.device)
-            labels[i] = 1
+            labels[:,i] = 1
 
             for x, y in dataloader:
                 x = x.view(x.shape[0], -1).to(args.device)
-                y = y.to(args.device)
-
-                loglike[i].append(model.log_prob(x, y))
+                loglike[i].append(model.log_prob(x, labels))
 
             loglike[i] = torch.cat(loglike[i], dim=0)   # cat along data dim under this label
         loglike = torch.stack(loglike, dim=1)           # cat all data along label dim
