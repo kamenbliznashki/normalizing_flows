@@ -20,6 +20,11 @@ def one_hot(x, label_size):
     out[torch.arange(len(x)), x] = 1
     return out
 
+def load_dataset(name):
+    exec('from datasets.{} import {}'.format(name.lower(), name))
+    return locals()[name]
+
+
 # --------------------
 # Dataloaders
 # --------------------
@@ -28,7 +33,7 @@ def fetch_dataloaders(dataset_name, batch_size, device, flip_toy_var_order=False
 
     # grab datasets
     if dataset_name in ['GAS', 'POWER', 'HEPMASS', 'MINIBOONE', 'BSDS300']:  # use the constructors by MAF authors
-        dataset = getattr(datasets, dataset_name)()
+        dataset = load_dataset(dataset_name)()
 
         # join train and val data again
         train_data = np.concatenate((dataset.trn.x, dataset.val.x), axis=0)
@@ -42,7 +47,7 @@ def fetch_dataloaders(dataset_name, batch_size, device, flip_toy_var_order=False
         lam = None
 
     elif dataset_name in ['MNIST']:
-        dataset = getattr(datasets, dataset_name)()
+        dataset = load_dataset(dataset_name)()
 
         # join train and val data again
         train_x = np.concatenate((dataset.trn.x, dataset.val.x), axis=0).astype(np.float32)
@@ -58,8 +63,8 @@ def fetch_dataloaders(dataset_name, batch_size, device, flip_toy_var_order=False
         lam = dataset.alpha
 
     elif dataset_name in ['TOY', 'MOONS']:  # use own constructors
-        train_dataset = getattr(datasets, dataset_name)(toy_train_size, flip_toy_var_order)
-        test_dataset = getattr(datasets, dataset_name)(toy_test_size, flip_toy_var_order)
+        train_dataset = load_dataset(dataset_name)(toy_train_size, flip_toy_var_order)
+        test_dataset = load_dataset(dataset_name)(toy_test_size, flip_toy_var_order)
 
         input_dims = train_dataset.input_size
         label_size = train_dataset.label_size
@@ -78,8 +83,8 @@ def fetch_dataloaders(dataset_name, batch_size, device, flip_toy_var_order=False
                                       T.Lambda(lambda x: logit(lam + (1 - 2 * lam) * x))])    # to logit space (cf MAF paper)
         target_transforms = T.Lambda(lambda x: partial(one_hot, label_size=label_size)(x))
 
-        train_dataset = getattr(datasets, dataset_name)(root=datasets.root, train=True, transform=image_transforms, target_transform=target_transforms)
-        test_dataset = getattr(datasets, dataset_name)(root=datasets.root, train=True, transform=image_transforms, target_transform=target_transforms)
+        train_dataset = load_dataset(dataset_name)(root=datasets.root, train=True, transform=image_transforms, target_transform=target_transforms)
+        test_dataset =  load_dataset(dataset_name)(root=datasets.root, train=True, transform=image_transforms, target_transform=target_transforms)
 
         input_dims = train_dataset[0][0].shape
 

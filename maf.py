@@ -1,3 +1,8 @@
+"""
+Masked Autoregressive Flow for Density Estimation
+arXiv:1705.07057v4
+"""
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -284,7 +289,7 @@ class MADE(nn.Module):
         for i in self.input_degrees:
             m, loga = self.net(self.net_input(x, y)).chunk(chunks=2, dim=1)
             x[:,i] = u[:,i] * torch.exp(loga[:,i]) + m[:,i]
-        log_abs_det_jacobian = -loga
+        log_abs_det_jacobian = loga
         return x, log_abs_det_jacobian
 
     def log_prob(self, x, y=None):
@@ -367,7 +372,7 @@ class MADEMOG(nn.Module):
             m_z = torch.gather(m[:,:,i], 1, z).squeeze()  # out (N, 1)
             loga_z = torch.gather(loga[:,:,i], 1, z).squeeze()
             x[:,i] = u_z * torch.exp(loga_z) + m_z
-        log_abs_det_jacobian = - loga
+        log_abs_det_jacobian = loga
         return x, log_abs_det_jacobian
 
     def log_prob(self, x, y=None):
