@@ -213,7 +213,6 @@ python planar_flow.py -- evaluate \
 * numpy
 * matplotlib
 * tensorboardX
-*
 
 ###### Some of the datasets further require:
 * pandas
