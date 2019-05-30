@@ -1,10 +1,51 @@
 # Normalizing flows
 
 Reimplementations of density estimation algorithms from:
+* [Block Neural Autoregressive Flow](https://arxiv.org/abs/1904.04676)
 * [Glow: Generative Flow with Invertible 1×1 Convolutions](https://arxiv.org/abs/1807.03039)
 * [Masked Autoregressive Flow for Density Estimation](https://arxiv.org/abs/1705.07057)
 * [Density Estimation using RealNVP](https://arxiv.org/abs/1605.08803)
 * [Variational Inference with Normalizing Flows](https://arxiv.org/abs/1505.05770)
+
+## Block Neural Autoregressive Flow
+https://arxiv.org/abs/1904.04676
+
+Implementation of BNAF on toy density estimation datasets.
+
+#### Results
+Density estimation of 2d toy data and density estimation of 2d test energy potentials (cf. Figure 2 & 3 in paper):
+
+The models were trained for 20,000 steps with the architectures and hyperparameters described in the Section 5 of the paper, with the exception of `rings` dataset (bottom right) which had 5 hidden layers. The models trained significantly faster than the planar flow model in Rezende & Mohamed and were much more stable; interestingly, BNAF stretches space differently and requires a lot more test points to show a smooth potential.
+
+| Density matching on 2d energy potentials | Density estimation on 2d toy data |
+| --- | --- |
+| ![bnaf_u1](images/bnaf/bnaf_u1_vis_step_20000.png) | ![bnaf_8gaussians](images/bnaf/bnaf_8gaussians_vis_step_20000.png) |
+| ![bnaf_u2](images/bnaf/bnaf_u2_vis_step_20000.png) | ![bnaf_checkerboard](images/bnaf/bnaf_checkerboard_vis_step_20000.png) |
+| ![bnaf_u3](images/bnaf/bnaf_u3_vis_step_20000.png) | ![bnaf_2spirals](images/bnaf/bnaf_2spirals_vis_step_20000.png) |
+| ![bnaf_u4](images/bnaf/bnaf_u4_vis_step_20000.png) | ![bnaf_rings](images/bnaf/bnaf_rings_vis_step_20000.png) |
+
+
+#### Usage
+To train model:
+```
+python bnaf.py --train
+               --dataset      # choice from u1, u2, u3, u4, 8gaussians, checkerboard, 2spirals
+               --log_interval # how often to save the model and visualize results
+               --n_steps      # number of training steps
+               --n_hidden     # number of hidden layers
+               --hidden_dim   # dimension of the hidden layer
+               --[add'l options]
+```
+Additional options are: learning rate, learning rate decay and patience, cuda device id, batch_size.
+
+To plot model:
+```
+python bnaf.py --plot
+               --restore_file [path to .pt checkpoint]
+```
+
+#### Useful resources
+* Official implementation by the authors https://github.com/nicola-decao/BNAF
 
 ## Glow: Generative Flow with Invertible 1x1 Convolutions
 https://arxiv.org/abs/1807.03039
@@ -75,7 +116,7 @@ python glow.py --evaluate \
                --[options of the saved model: n_levels, depth, width, batch_size]
 ```
 
-To generate data from a trained model:
+To generate samples from a trained model:
 ```
 python glow.py --generate \
                --restore_file=[path to .pt checkpoint] \
@@ -85,7 +126,7 @@ python glow.py --generate \
                --z_std=[temperature parameter; if blank, generates range]
 ```
 
-To generate data from a trained model:
+To visualize manipulations on specific image given a trained model:
 ```
 python glow.py --visualize \
                --restore_file=[path to .pt checkpoint] \
