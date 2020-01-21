@@ -288,7 +288,8 @@ if __name__ == '__main__':
 
     if args.train:
         optimizer = torch.optim.RMSprop(flow.parameters(), lr=args.lr, momentum=0.9, alpha=0.90, eps=1e-6, weight_decay=args.weight_decay)
-        if optimizer_state: optimizer.load_state_dict(optimizer_state)
+        if args.restore_file and optimizer_state:
+            optimizer.load_state_dict(optimizer_state)
         args.n_steps = args.start_step + args.n_steps
         optimize_flow(base_dist, flow, u_z, optimizer, args)
 
