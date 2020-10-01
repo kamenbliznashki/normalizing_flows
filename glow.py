@@ -33,6 +33,7 @@ parser.add_argument('--generate', action='store_true', help='Generate samples fr
 parser.add_argument('--visualize', action='store_true', help='Visualize manipulated attribures.')
 parser.add_argument('--restore_file', type=str, help='Path to model to restore.')
 parser.add_argument('--seed', type=int, help='Random seed to use.')
+parser.add_argument('--download', action='store_true', default=False, help='download data if possible.')
 # paths and reporting
 parser.add_argument('--data_dir', default='/mnt/disks/data/', help='Location of datasets.')
 parser.add_argument('--output_dir', default='./results/{}'.format(os.path.splitext(__file__)[0]))
@@ -95,7 +96,7 @@ def fetch_dataloader(args, train=True, data_dependent_init=False):
     dataset = {'mnist': MNIST, 'celeba': CelebA}[args.dataset]
 
     # load the specific dataset
-    dataset = dataset(root=args.data_dir, train=train, transform=transforms)
+    dataset = dataset(root=args.data_dir, train=train, transform=transforms, download=args.download)
 
     if args.mini_data_size:
         dataset.data = dataset.data[:args.mini_data_size]
